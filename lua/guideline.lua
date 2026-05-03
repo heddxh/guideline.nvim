@@ -121,7 +121,9 @@ function BufWin:render()
     local n = #buffer.level_diagnostics[i]
     if n ~= 0 then
       local signs = (vim.diagnostic.config() or {}).signs
-      local text = type(signs) == "table" and signs.text[i]
+      local text = type(signs) == "table"
+          and signs.text ~= nil
+          and signs.text[i]
         or vim.diagnostic.severity[i]:sub(1, 1)
       diagnostic_components[#diagnostic_components + 1] = hl_string(
         ("GuideLineDiagnostic%s"):format(
